@@ -1,22 +1,23 @@
 // src/components/common/Input.tsx
 
-import React from 'react';
+import { forwardRef, useId, type InputHTMLAttributes } from 'react';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
   helperText?: string;
 }
 
-const Input: React.FC<InputProps> = ({
+const Input = forwardRef<HTMLInputElement, InputProps>(({
   label,
   error,
   helperText,
   className = '',
   id,
   ...props
-}) => {
-  const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
+}, ref) => {
+  const generatedId = useId();
+  const inputId = id || generatedId;
 
   return (
     <div className="w-full">
@@ -26,6 +27,7 @@ const Input: React.FC<InputProps> = ({
         </label>
       )}
       <input
+        ref={ref}
         id={inputId}
         className={`input ${error ? 'input-error' : ''} ${className}`}
         {...props}
@@ -38,6 +40,8 @@ const Input: React.FC<InputProps> = ({
       )}
     </div>
   );
-};
+});
+
+Input.displayName = 'Input';
 
 export default Input;

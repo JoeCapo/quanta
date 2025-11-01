@@ -1,15 +1,15 @@
 // src/components/common/Button.tsx
 
-import React from 'react';
+import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'ghost' | 'success' | 'error';
   size?: 'sm' | 'md' | 'lg';
   isLoading?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-const Button: React.FC<ButtonProps> = ({
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   variant = 'primary',
   size = 'md',
   isLoading = false,
@@ -17,7 +17,7 @@ const Button: React.FC<ButtonProps> = ({
   children,
   className = '',
   ...props
-}) => {
+}, ref) => {
   const baseStyles = 'btn inline-flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed';
   
   const variantStyles = {
@@ -36,6 +36,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
+      ref={ref}
       className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
       disabled={disabled || isLoading}
       {...props}
@@ -46,6 +47,8 @@ const Button: React.FC<ButtonProps> = ({
       {children}
     </button>
   );
-};
+});
+
+Button.displayName = 'Button';
 
 export default Button;

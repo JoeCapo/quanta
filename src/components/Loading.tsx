@@ -1,18 +1,16 @@
 // src/components/common/Loading.tsx
 
-import React from 'react';
-
 interface LoadingProps {
   size?: 'sm' | 'md' | 'lg';
   text?: string;
   fullScreen?: boolean;
 }
 
-const Loading: React.FC<LoadingProps> = ({
+function Loading({
   size = 'md',
   text,
   fullScreen = false,
-}) => {
+}: LoadingProps) {
   const sizeStyles = {
     sm: 'h-6 w-6',
     md: 'h-12 w-12',
@@ -37,6 +35,6 @@ const Loading: React.FC<LoadingProps> = ({
   }
 
   return content;
-};
+}
 
 export default Loading;

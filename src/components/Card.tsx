@@ -1,25 +1,26 @@
 // src/components/common/Card.tsx
 
-import React from 'react';
+import { forwardRef, type ReactNode } from 'react';
 
 interface CardProps {
-  children: React.ReactNode;
+  children: ReactNode;
   elevated?: boolean;
   className?: string;
   onClick?: () => void;
 }
 
-const Card: React.FC<CardProps> = ({
+const Card = forwardRef<HTMLDivElement, CardProps>(({
   children,
   elevated = false,
   className = '',
   onClick,
-}) => {
+}, ref) => {
   const baseStyles = elevated ? 'card-elevated' : 'card';
   const clickableStyles = onClick ? 'cursor-pointer hover:scale-[1.02]' : '';
 
   return (
     <div
+      ref={ref}
       className={`${baseStyles} ${clickableStyles} ${className}`}
       onClick={onClick}
       role={onClick ? 'button' : undefined}
@@ -29,6 +30,8 @@ const Card: React.FC<CardProps> = ({
       {children}
     </div>
   );
-};
+});
+
+Card.displayName = 'Card';
 
 export default Card;

@@ -1,18 +1,16 @@
 // src/components/common/ErrorMessage.tsx
 
-import React from 'react';
-
 interface ErrorMessageProps {
   message: string;
   onRetry?: () => void;
   className?: string;
 }
 
-const ErrorMessage: React.FC<ErrorMessageProps> = ({
+function ErrorMessage({
   message,
   onRetry,
   className = '',
-}) => {
+}: ErrorMessageProps) {
   return (
     <div
       className={`rounded-lg border border-error-500/30 bg-error-500/10 p-4 ${className}`}
@@ -46,6 +44,6 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({
       </div>
     </div>
   );
-};
+}
 
 export default ErrorMessage;

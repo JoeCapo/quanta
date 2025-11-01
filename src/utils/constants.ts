@@ -1,6 +1,6 @@
 // src/utils/constants.ts
 
-import { StrategyOption } from '../types';
+import type { StrategyOption } from '../types';
 
 // ============================================================================
 // INVESTMENT STRATEGIES
