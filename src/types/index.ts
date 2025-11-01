@@ -14,8 +14,10 @@ export interface UserProfile extends User {
   monthlyBudget: number;
   investmentStrategy: InvestmentStrategy;
   watchlist: string[]; // Array of stock symbols
+  subscriptionTier: SubscriptionTier;
   riskTolerance?: "low" | "medium" | "high";
   preferences?: UserPreferences;
+  updatedAt?: any; // Firestore Timestamp
 }
 
 export interface UserPreferences {

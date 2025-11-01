@@ -1,0 +1,111 @@
+// src/pages/Dashboard.tsx
+
+import { useAuth } from '../hooks/useAuth';
+import { logout } from '../services/auth';
+import { useNavigate } from 'react-router-dom';
+import Button from '../components/Button';
+import Card from '../components/Card';
+import { ROUTES } from '../utils/constants';
+
+function Dashboard() {
+  const { user, userProfile } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate(ROUTES.LOGIN);
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
+  return (
+    <div className="min-h-screen p-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h1 className="text-4xl font-bold text-gradient mb-2">
+              Welcome, {userProfile?.displayName || user?.displayName || 'Investor'}!
+            </h1>
+            <p className="text-dark-text-secondary">
+              Your AI-powered investment dashboard
+            </p>
+          </div>
+          <Button variant="secondary" onClick={handleLogout}>
+            Logout
+          </Button>
+        </div>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <Card className="p-6">
+            <h3 className="text-dark-text-secondary text-sm uppercase tracking-wide mb-2">
+              Investment Strategy
+            </h3>
+            <p className="text-2xl font-bold capitalize">
+              {userProfile?.investmentStrategy || 'Not Set'}
+            </p>
+          </Card>
+
+          <Card className="p-6">
+            <h3 className="text-dark-text-secondary text-sm uppercase tracking-wide mb-2">
+              Monthly Budget
+            </h3>
+            <p className="text-2xl font-bold">
+              ${userProfile?.monthlyBudget?.toLocaleString() || '0'}
+            </p>
+          </Card>
+
+          <Card className="p-6">
+            <h3 className="text-dark-text-secondary text-sm uppercase tracking-wide mb-2">
+              Subscription
+            </h3>
+            <p className="text-2xl font-bold capitalize">
+              {userProfile?.subscriptionTier || 'Free'}
+            </p>
+          </Card>
+        </div>
+
+        {/* Quick Actions */}
+        <Card className="p-6 mb-8">
+          <h3 className="font-semibold mb-4">Quick Actions</h3>
+          <div className="flex gap-4 flex-wrap">
+            <Button variant="primary" onClick={() => navigate(ROUTES.PROFILE)}>
+              📝 Edit Profile
+            </Button>
+            <Button variant="ghost" disabled>
+              👀 View Watchlist (Coming Soon)
+            </Button>
+            <Button variant="ghost" disabled>
+              📊 Portfolio (Coming Soon)
+            </Button>
+          </div>
+        </Card>
+
+        {/* Main Content */}
+        <Card className="p-8">
+          <div className="text-center py-12">
+            <h2 className="text-2xl font-bold mb-4">
+              Dashboard Coming Soon
+            </h2>
+            <p className="text-dark-text-secondary mb-6">
+              We're building amazing features for your investment journey.
+            </p>
+            <div className="flex gap-4 justify-center">
+              <Button variant="ghost" disabled>
+                📈 Explore Stocks (Phase 2)
+              </Button>
+              <Button variant="ghost" disabled>
+                🤖 Chat with AI (Phase 3)
+              </Button>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+export default Dashboard;
