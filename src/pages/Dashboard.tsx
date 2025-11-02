@@ -8,7 +8,7 @@ import Card from '../components/Card';
 import { ROUTES } from '../utils/constants';
 
 function Dashboard() {
-  const { user, userProfile } = useAuth();
+  const { user, userProfile, loading } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -19,6 +19,17 @@ function Dashboard() {
       console.error('Logout error:', error);
     }
   };
+
+  // Show loading state while profile is being fetched
+  if (loading) {
+    return (
+      <div className="min-h-screen p-8 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-xl text-dark-text-secondary">Loading your dashboard...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen p-8">
