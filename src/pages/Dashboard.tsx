@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import Card from '../components/Card';
 import { ROUTES } from '../utils/constants';
+import { WatchlistManager } from '../components/stock';
 
 function Dashboard() {
   const { user, userProfile, loading } = useAuth();
@@ -84,36 +85,24 @@ function Dashboard() {
           <h3 className="font-semibold mb-4">Quick Actions</h3>
           <div className="flex gap-4 flex-wrap">
             <Button variant="primary" onClick={() => navigate(ROUTES.PROFILE)}>
-              📝 Edit Profile
+              Edit Profile
             </Button>
             <Button variant="ghost" disabled>
-              👀 View Watchlist (Coming Soon)
+              Portfolio (Coming Soon)
             </Button>
             <Button variant="ghost" disabled>
-              📊 Portfolio (Coming Soon)
+              AI Chat (Coming Soon)
             </Button>
           </div>
         </Card>
 
-        {/* Main Content */}
-        <Card className="p-8">
-          <div className="text-center py-12">
-            <h2 className="text-2xl font-bold mb-4">
-              Dashboard Coming Soon
-            </h2>
-            <p className="text-dark-text-secondary mb-6">
-              We're building amazing features for your investment journey.
-            </p>
-            <div className="flex gap-4 justify-center">
-              <Button variant="ghost" disabled>
-                📈 Explore Stocks (Phase 2)
-              </Button>
-              <Button variant="ghost" disabled>
-                🤖 Chat with AI (Phase 3)
-              </Button>
-            </div>
-          </div>
-        </Card>
+        {/* Watchlist Section */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold mb-4">Stock Watchlist</h2>
+          <Card className="p-6">
+            <WatchlistManager />
+          </Card>
+        </div>
       </div>
     </div>
   );
